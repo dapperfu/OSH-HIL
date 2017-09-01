@@ -1,0 +1,3 @@
+# Actual requirements for uHIL
+pyvisa
+pyvisa-py
