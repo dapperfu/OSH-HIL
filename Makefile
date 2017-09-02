@@ -1,5 +1,5 @@
 venv:
-	python3 -mvenv venv
+	python3 -mvenv --system-site-packages venv
 
 .PHONY: pip
 pip:
@@ -13,7 +13,6 @@ debian:
 .PHONY: clean
 clean:
 	rm -rf venv
-	rm -rf libserialport
 
 crossbuild:
 	# Still WIP. May be broken.

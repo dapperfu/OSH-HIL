@@ -13,3 +13,6 @@ matplotlib
 scipy
 
 
+jupyter
+notebook
+nbconvert

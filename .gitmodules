@@ -10,3 +10,15 @@
 [submodule "sigrok/sigrok-cli"]
 	path = sigrok/sigrok-cli
 	url = git://sigrok.org/sigrok-cli
+[submodule "pulseview"]
+	path = pulseview
+	url = git://sigrok.org/pulseview.git
+[submodule "sigrok/pulseview"]
+	path = sigrok/pulseview
+	url = git://sigrok.org/pulseview.git
+[submodule "notebooks/python_sigrok2"]
+	path = notebooks/python_sigrok2
+	url = git@github.com:jed-frey/python_sigrok2.git
+[submodule "sigrok/sigrok-util"]
+	path = sigrok/sigrok-util
+	url = git://sigrok.org/sigrok-util
