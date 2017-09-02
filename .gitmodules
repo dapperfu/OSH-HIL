@@ -1,0 +1,12 @@
+[submodule "sigrok/libserialport"]
+	path = sigrok/libserialport
+	url = git://sigrok.org/libserialport
+[submodule "sigrok/libsigrok"]
+	path = sigrok/libsigrok
+	url = git://sigrok.org/libsigrok
+[submodule "sigrok/libsigrokdecode"]
+	path = sigrok/libsigrokdecode
+	url = git://sigrok.org/libsigrokdecode
+[submodule "sigrok/sigrok-cli"]
+	path = sigrok/sigrok-cli
+	url = git://sigrok.org/sigrok-cli
