@@ -1,3 +1,15 @@
 # Actual requirements for uHIL
+
+# Basic Communications
+pyserial
+pyusb
+
+# Instrument Control
 pyvisa
 pyvisa-py
+
+numpy
+matplotlib
+scipy
+
+
