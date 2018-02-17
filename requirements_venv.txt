@@ -1,4 +1,0 @@
-# Bootstrap the venv with some basic tools.
-pip
-setuptools
-wheel
