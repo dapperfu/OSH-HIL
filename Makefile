@@ -14,8 +14,7 @@ artifacts: ${ARTIFACT_FILES}
 
 .PHONY: ${ARTIFACT_FILES}
 ${ARTIFACT_FILES}:
-	# $(basename ${@})
-	# curl --location --output "${@}" "$(shell cat "${@}.txt")"
+	curl --silent --location --output "${@}" "$(shell cat "${@}.txt")"
 
 # Toolchain Includes
 include .mk_inc/env.mk

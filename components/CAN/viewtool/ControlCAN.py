@@ -1,14 +1,13 @@
-"""
-Program test environment
-Pyhone version:3.4.1
-Firmware version:2.8.28
-Dependent files(MacOSX):libGinkgo_Driver.dylib,libusb-0.1.4.dylib,libusb-1.0.0.dylib
-Dependent files(Windows):Ginkgo_Driver.dll
-Dependent files(Linux):libGinkgo_Driver.so,libusb-1.0.so
-More Infomation:www.viewtool.com
-"""
+# Program test environment
+# Pyhone version:3.4.1
+# Firmware version:2.8.28
+# Dependent files(MacOSX):libGinkgo_Driver.dylib,libusb-0.1.4.dylib,libusb-1.0.0.dylib
+# Dependent files(Windows):Ginkgo_Driver.dll
+# Dependent files(Linux):libGinkgo_Driver.so,libusb-1.0.so
+# More Infomation:www.viewtool.com
 from ctypes import *
 import platform
+import os
 # Compatible with other CAN adapter datatype
 
 
@@ -203,9 +202,9 @@ elif(platform.system() == "Darwin"):
     GinkgoLib = cdll.LoadLibrary("./lib/macos/libGinkgo_Driver.dylib")
 elif(platform.system() == "Linux"):
     if "64bit" in platform.architecture():
-        GinkgoLib = cdll.LoadLibrary("./lib/linux/64bit/libGinkgo_Driver.so")
+        GinkgoLib = cdll.LoadLibrary(os.path.dirname(__file__) + "/lib/linux_64bit/libGinkgo_Driver.so")
     else:
-        GinkgoLib = cdll.LoadLibrary("./lib/linux/32bit/libGinkgo_Driver.so")
+        GinkgoLib = cdll.LoadLibrary("./lib/linux_32bit/libGinkgo_Driver.so")
 else:
     print("Unknown system")
 # Scan device
@@ -229,6 +228,7 @@ def VCI_OpenDevice(DevType, DevIndex, Reserved):
 
 
 def VCI_CloseDevice(DevType, DevIndex):
+    #
     try:
         assert DevType == VCI_USBCAN2, 'Device type error!'
     except AssertionError as args:
@@ -239,14 +239,14 @@ def VCI_CloseDevice(DevType, DevIndex):
 
 
 def VCI_InitCAN(DevType, DevIndex, CANIndex, pInitConfig):
-    'Initialize device'
+    # 'Initialize device'
     try:
         assert DevType == VCI_USBCAN2, 'Device type error!'
         assert 0 <= CANIndex <= 1, 'CAN index error!'
     except AssertionError as args:
         print('%s: %s' % (args.__class__.__name__, args))
         exit()
-        return GinkgoLib.VCI_InitCAN(
+    return GinkgoLib.VCI_InitCAN(
             c_uint(DevType),
             c_uint(DevIndex),
             c_uint(CANIndex),
@@ -255,14 +255,14 @@ def VCI_InitCAN(DevType, DevIndex, CANIndex, pInitConfig):
 
 
 def VCI_InitCANEx(DevType, DevIndex, CANIndex, pInitConfig):
-    'Initialize device extend'
+    # 'Initialize device extend'
     try:
         assert DevType == VCI_USBCAN2, 'Device type error!'
         assert 0 <= CANIndex <= 1, 'CAN index error!'
     except AssertionError as args:
         print('%s: %s' % (args.__class__.__name__, args))
         exit()
-        return GinkgoLib.VCI_InitCANEx(
+    return GinkgoLib.VCI_InitCANEx(
             c_uint(DevType),
             c_uint(DevIndex),
             c_uint(CANIndex),
@@ -271,20 +271,20 @@ def VCI_InitCANEx(DevType, DevIndex, CANIndex, pInitConfig):
 
 
 def VCI_ReadBoardInfoEx(DevIndex, pInfo):
-    'Get board infomation'
-        return GinkgoLib.VCI_ReadBoardInfoEx(c_uint(DevIndex), pInfo)
+    # 'Get board infomation'
+    return GinkgoLib.VCI_ReadBoardInfoEx(c_uint(DevIndex), pInfo)
 # Get CAN status
 
 
 def VCI_ReadCANStatus(DevType, DevIndex, CANIndex, pCANStatus):
-    'Get CAN status'
+    # 'Get CAN status'
     try:
         assert DevType == VCI_USBCAN2, 'Device type error!'
         assert 0 <= CANIndex <= 1, 'CAN index error!'
     except AssertionError as args:
         print('%s: %s' % (args.__class__.__name__, args))
         exit()
-        return GinkgoLib.VCI_ReadCANStatus(
+    return GinkgoLib.VCI_ReadCANStatus(
             c_uint(DevType),
             c_uint(DevIndex),
             c_uint(CANIndex),
@@ -293,14 +293,14 @@ def VCI_ReadCANStatus(DevType, DevIndex, CANIndex, pCANStatus):
 
 
 def VCI_SetFilter(DevType, DevIndex, CANIndex, pFilter):
-    'Set CAN filter'
+    # 'Set CAN filter'
     try:
         assert DevType == VCI_USBCAN2, 'Device type error!'
         assert 0 <= CANIndex <= 1, 'CAN index error!'
     except AssertionError as args:
         print('%s: %s' % (args.__class__.__name__, args))
         exit()
-        return GinkgoLib.VCI_SetFilter(
+    return GinkgoLib.VCI_SetFilter(
             c_uint(DevType),
             c_uint(DevIndex),
             c_uint(CANIndex),
@@ -309,100 +309,97 @@ def VCI_SetFilter(DevType, DevIndex, CANIndex, pFilter):
 
 
 def VCI_GetReceiveNum(DevType, DevIndex, CANIndex):
-    'Get CAN number from buffer'
+    # 'Get CAN number from buffer'
     try:
         assert DevType == VCI_USBCAN2, 'Device type error!'
         assert 0 <= CANIndex <= 1, 'CAN index error!'
     except AssertionError as args:
         print('%s: %s' % (args.__class__.__name__, args))
         exit()
-        return GinkgoLib.VCI_GetReceiveNum(
+    return GinkgoLib.VCI_GetReceiveNum(
             c_uint(DevType), c_uint(DevIndex), c_uint(CANIndex))
 # Clear CAN buffer
 
 
 def VCI_ClearBuffer(DevType, DevIndex, CANIndex):
-    'Clear CAN buffer'
+    # 'Clear CAN buffer'
     try:
         assert DevType == VCI_USBCAN2, 'Device type error!'
         assert 0 <= CANIndex <= 1, 'CAN index error!'
     except AssertionError as args:
         print('%s: %s' % (args.__class__.__name__, args))
         exit()
-        return GinkgoLib.VCI_ClearBuffer(
+    return GinkgoLib.VCI_ClearBuffer(
             c_uint(DevType), c_uint(DevIndex), c_uint(CANIndex))
 # Register receive callback function
 
 
 def VCI_RegisterReceiveCallback(DevIndex, pReceiveCallBack):
-    'Register receive callback function'
-        return GinkgoLib.VCI_RegisterReceiveCallback(
+    # 'Register receive callback function'
+    return GinkgoLib.VCI_RegisterReceiveCallback(
             c_uint(DevIndex), pReceiveCallBack)
 # Logout receive callback function
 
 
 def VCI_LogoutReceiveCallback(DevIndex):
-    'Logout receive callback function'
-        return GinkgoLib.VCI_LogoutReceiveCallback(c_uint(DevIndex))
+    # 'Logout receive callback function'
+    return GinkgoLib.VCI_LogoutReceiveCallback(c_uint(DevIndex))
 # Start receive CAN
 
 
 def VCI_StartCAN(DevType, DevIndex, CANIndex):
-    'Start receive CAN'
+    # 'Start receive CAN'
     try:
         assert DevType == VCI_USBCAN2, 'Device type error!'
         assert 0 <= CANIndex <= 1, 'CAN index error!'
     except AssertionError as args:
         print('%s: %s' % (args.__class__.__name__, args))
         exit()
-        return GinkgoLib.VCI_StartCAN(
+    return GinkgoLib.VCI_StartCAN(
             c_uint(DevType),
             c_uint(DevIndex),
             c_uint(CANIndex))
+
 # Stop and reset CAN
-
-
 def VCI_ResetCAN(DevType, DevIndex, CANIndex):
-    'Stop and reset CAN'
+    # 'Stop and reset CAN'
     try:
         assert DevType == VCI_USBCAN2, 'Device type error!'
         assert 0 <= CANIndex <= 1, 'CAN index error!'
     except AssertionError as args:
         print('%s: %s' % (args.__class__.__name__, args))
         exit()
-        return GinkgoLib.VCI_ResetCAN(
+    return GinkgoLib.VCI_ResetCAN(
             c_uint(DevType),
             c_uint(DevIndex),
             c_uint(CANIndex))
+
 # Transmit CAN data
-
-
 def VCI_Transmit(DevType, DevIndex, CANIndex, pSend, Len):
-    'Transmit CAN data'
+    # 'Transmit CAN data'
     try:
         assert DevType == VCI_USBCAN2, 'Device type error!'
         assert 0 <= CANIndex <= 1, 'CAN index error!'
     except AssertionError as args:
         print('%s: %s' % (args.__class__.__name__, args))
         exit()
-        return GinkgoLib.VCI_Transmit(
+    return GinkgoLib.VCI_Transmit(
             c_uint(DevType),
             c_uint(DevIndex),
             c_uint(CANIndex),
             pSend,
             c_uint(Len))
+
 # Read CAN data from buffer
-
-
 def VCI_Receive(DevType, DevIndex, CANIndex, pReceive, Len, WaitTime):
-    'Read CAN data from buffer'
+    # 'Read CAN data from buffer'
     try:
         assert DevType == VCI_USBCAN2, 'Device type error!'
         assert 0 <= CANIndex <= 1, 'CAN index error!'
     except AssertionError as args:
         print('%s: %s' % (args.__class__.__name__, args))
         exit()
-        return GinkgoLib.VCI_Receive(
+    return GinkgoLib.VCI_Receive(
             c_uint(DevType),
             c_uint(DevIndex),
             c_uint(CANIndex),
