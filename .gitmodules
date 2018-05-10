@@ -22,3 +22,6 @@
 [submodule "sigrok/sigrok-util"]
 	path = sigrok/sigrok-util
 	url = git://sigrok.org/sigrok-util
+[submodule ".mk_inc"]
+	path = .mk_inc
+	url = https://github.com/jed-frey/make_sandwich.git
