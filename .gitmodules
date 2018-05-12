@@ -34,3 +34,6 @@
 [submodule "components/CAN/arduino_CANBoard"]
 	path = components/CAN/arduino_CANBoard
 	url = https://github.com/jed-frey/arduino_CANBoard.git
+[submodule "tools/ElfGrinder"]
+	path = tools/ElfGrinder
+	url = http://www.github.com/jed-frey/ElfGrinder.git
