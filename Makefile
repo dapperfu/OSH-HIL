@@ -11,6 +11,9 @@ ARTIFACT_FILES=$(patsubst %.txt,%,${ARTIFACT_PTR})
 
 .PHONY: artifacts
 artifacts: ${ARTIFACT_FILES}
+#	tar -xzvf ${@}/linuxcan.tar.gz -C ${@}
+#	cd "${@}" && unzip "Ginkgo_USB-I2C&SPI&CAN_API_v2.0.3.5.zip"
+#	cd "${@}" && unzip pycanlib.zip
 
 .PHONY: ${ARTIFACT_FILES}
 ${ARTIFACT_FILES}:

@@ -1,5 +1,6 @@
 ### OSH-HIL Ignores
 
+.env-*
 
 # Python Virtual Environment
 bin/

@@ -28,3 +28,9 @@
 [submodule "artifacts/viewtool_CAN_Adapter"]
 	path = artifacts/viewtool_CAN_Adapter
 	url = https://github.com/jed-frey/CAN_Adapter.git
+[submodule "artifacts/libusbcan"]
+	path = artifacts/libusbcan
+	url = https://github.com/b/libusbcan.git
+[submodule "components/CAN/arduino_CANBoard"]
+	path = components/CAN/arduino_CANBoard
+	url = https://github.com/jed-frey/arduino_CANBoard.git
