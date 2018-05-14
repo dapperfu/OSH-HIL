@@ -1,4 +1,6 @@
 # Config
+ENVS+=env.python
+ENVS+=env.arduino
 
 ## Targets
 # Do nothing.
@@ -23,8 +25,6 @@ ${ARTIFACT_FILES}:
 #.PHONY: env
 #env: 
 #	git submodule foreach "${MAKE} env"
-
-ENVS:=env.python env.arduino
 
 # Toolchain Includes
 include .mk_inc/env.mk
