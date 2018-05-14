@@ -11,18 +11,20 @@ ARTIFACT_FILES=$(patsubst %.txt,%,${ARTIFACT_PTR})
 
 .PHONY: artifacts
 artifacts: ${ARTIFACT_FILES}
-#	tar -xzvf ${@}/linuxcan.tar.gz -C ${@}
-#	cd "${@}" && unzip "Ginkgo_USB-I2C&SPI&CAN_API_v2.0.3.5.zip"
-#	cd "${@}" && unzip pycanlib.zip
+	tar -xzvf ${@}/linuxcan.tar.gz -C ${@}
+	cd "${@}" && unzip "Ginkgo_USB-I2C&SPI&CAN_API_v2.0.3.5.zip"
+	cd "${@}" && unzip pycanlib.zip
 
 .PHONY: ${ARTIFACT_FILES}
 ${ARTIFACT_FILES}:
 	curl --silent --location --output "${@}" "$(shell cat "${@}.txt")"
 
 
-.PHONY: env
-env: artifacts env.python env.arduino
-	git submodule foreach "${MAKE} env"
+#.PHONY: env
+#env: 
+#	git submodule foreach "${MAKE} env"
+
+ENVS:=env.python env.arduino
 
 # Toolchain Includes
 include .mk_inc/env.mk
