@@ -1,6 +1,8 @@
-# Config
-ENVS+=env.python
-ENVS+=env.arduino
+## Configuration
+
+# Environments to setup.
+ENVS+=python
+ENVS+=arduino
 
 ## Targets
 # Do nothing.
@@ -20,7 +22,6 @@ artifacts: ${ARTIFACT_FILES}
 .PHONY: ${ARTIFACT_FILES}
 ${ARTIFACT_FILES}:
 	curl --silent --location --output "${@}" "$(shell cat "${@}.txt")"
-
 
 #.PHONY: env
 #env: 

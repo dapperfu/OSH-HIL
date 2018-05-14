@@ -1,5 +1,4 @@
 ### OSH-HIL Ignores
-
 .env-*
 
 # Python Virtual Environment
@@ -10,12 +9,12 @@ pip-selfcheck.json
 pyvenv.cfg
 share/
 
-
-
-
-
-
-
+# Arduino ignores.
+**/build-*/*
+arduino/
+arduino_*.tar.gz
+arduino_make/
+arduino_make_*.tar.gz
 
 ## GitHub Python Ignores
 # Byte-compiled / optimized / DLL files
