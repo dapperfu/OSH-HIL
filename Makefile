@@ -19,5 +19,10 @@ artifacts: ${ARTIFACT_FILES}
 ${ARTIFACT_FILES}:
 	curl --silent --location --output "${@}" "$(shell cat "${@}.txt")"
 
+
+.PHONY: env
+env: artifacts env.python env.arduino
+	git submodule foreach "${MAKE} env"
+
 # Toolchain Includes
 include .mk_inc/env.mk
