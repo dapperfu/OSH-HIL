@@ -1,6 +1,8 @@
 ### OSH-HIL Ignores
 .env-*
 
+**/__pycache__/*
+
 # Python Virtual Environment
 bin/
 etc/
