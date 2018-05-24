@@ -9,10 +9,12 @@ def test_uuid():
     print(test_uuid)
     return test_uuid
 
+# /etc/udev/rules.d/42-osh-hil.rules
+# ACTION=="add", ATTRS{product}=="digital_1O1I", SYMLINK+="digital_1O1I"
 @pytest.fixture(scope="function")
 def ser():
     with serial.Serial(
-        port='/dev/ttyUSB1',
+        port='/dev/digital_1O1I',
         baudrate=9600,
         dsrdtr=True,
         rtscts=True) as ser:
