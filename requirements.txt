@@ -4,4 +4,8 @@ notebook
 asammdf
 python-can
 
+pytest
+pyserial
+
 artifacts/pycanlib/canlib-1.5.525-py2.py3-none-any.whl
+
