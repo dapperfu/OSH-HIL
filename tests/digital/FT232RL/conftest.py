@@ -14,7 +14,7 @@ def test_uuid():
 @pytest.fixture(scope="function")
 def ser():
     with serial.Serial(
-        port='/dev/digital_1O1I',
+        port='/dev/ttyUSB0',
         baudrate=9600,
         dsrdtr=True,
         rtscts=True) as ser:
