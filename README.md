@@ -7,5 +7,3 @@
 Hallo dSpace und ETAS:
 
 On n'est jamais servi si bien que par soi-même.
-
-- Jed.
