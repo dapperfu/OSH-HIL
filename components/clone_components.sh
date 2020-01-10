@@ -1,0 +1,9 @@
+git clone https://github.com/python-ivi/python-usbtmc.git
+git clone https://github.com/minimalmetrics/jupyter_notebook_pyinstaller.git
+git clone https://github.com/danielhrisca/asammdf.git
+git clone https://github.com/jed-frey/python_CANape
+git clone https://github.com/jed-frey/python-ivi.git
+git clone https://github.com/jed-frey/rtplib3.git
+git clone https://github.com/jed-frey/python_Rigol.git
+git clone https://github.com/jed-frey/python_mhs5200.git
+git clone https://github.com/chrissound/GitChapter.git

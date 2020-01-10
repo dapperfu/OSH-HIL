@@ -1,33 +1,19 @@
-YAMLS:=$(wildcard *.yaml)
-BUILD_DIRS=$(patsubst %.yaml,%,${YAMLS})
-
 # Configuration
-PYTHON_VENV?=.venv
-PYTHON_VER?=python3.7
+PYTHON_VER?=python3.8
+PYTHON_VENV?=virtualenv_${PYTHON_VER}
 PYTHON_BIN?=$(shell which ${PYTHON_VER})
 
+.PHONY: all
+all:
+	@echo "Please select from one of the below targets:"
+	@echo "--------------------------------------------"
+	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
+	
 .PHONY: debug
 debug:
-
-	$(info $${YAMLS}=${YAMLS})
-	$(info $${BUILD_DIRS}=${BUILD_DIRS})
 	$(info $${PYTHON_VER}=${PYTHON_VER})
 	$(info $${PYTHON_VENV}=${PYTHON_VENV})
 	$(info $${PYTHON_BIN}=${PYTHON_BIN})
-
-.PHONY: all
-all: ${BUILD_DIRS}
-
-%: %.yaml
-	${PYTHON_VENV}/bin/esphome ${^} compile
-
-.PHONY: flash-all
-flash-all:
-	ls *.yaml | xargs -P8 -n1 -I{} ${PYTHON_VENV}/bin/esphome {} upload
-
-.PHONY: clean
-clean:
-	rm -rf ${BUILD_DIRS}
 	
 .PHONY: clean-all
 clean-all:
@@ -38,7 +24,18 @@ clean-all:
 venv: ${PYTHON_VENV}/bin/python
 
 ${PYTHON_VENV}/bin/python:
-	${MAKE} debug
 	${PYTHON_BIN} -mvenv ${PYTHON_VENV}
-	${PYTHON_VENV}/bin/pip install --upgrade wheel setuptools pip
+	${PYTHON_VENV}/bin/pip install --upgrade pip wheel
 	${PYTHON_VENV}/bin/pip install -r requirements.txt
+
+.PHONY: host
+host:
+	# Host Target
+	# Setup the host
+	# Tested on Ubuntu 18.04
+	sudo apt-get install python3.8-minimal python3.8-dev python3.8-venv
+
+clone_components.sh: make_clone_components.sh
+	echo '#!/usr/bin/env bash'
+	./${^} > ${@}
+	chmod +x ${@}

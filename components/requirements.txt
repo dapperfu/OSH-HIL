@@ -1,1 +1,6 @@
 esphome
+-e python-ivi
+
+-e python_mhs5200
+-e python_Rigol
+
