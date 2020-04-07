@@ -22,3 +22,6 @@
 [submodule "sigrok/sigrok-util"]
 	path = sigrok/sigrok-util
 	url = git://sigrok.org/sigrok-util
+[submodule "components/InstrumentKit"]
+	path = components/InstrumentKit
+	url = https://github.com/Galvant/InstrumentKit.git
