@@ -1,0 +1,63 @@
+[DOCUMENT]
+TITLE: MIL-STD-498 STD (Software Test Description)
+PREFIX: STD-
+
+[REQUIREMENT]
+UID: STD-001
+TITLE: HUT drives and HIL reads
+STATEMENT: >>>
+The test hut_drives_hil_reads SHALL flash HUT environment drive_walk and HIL environment read_d2_d5, read frames from the nanoHIL serial port, and pass only when the checkout walk appears in order.
+<<<
+COMMENT: >>>
+Acceptance: The case table binds that test id to those environments and to the hil reporter.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: STP-001
+- TYPE: Parent
+  VALUE: SRS-002
+
+[REQUIREMENT]
+UID: STD-002
+TITLE: HIL drives and HUT reads
+STATEMENT: >>>
+The test hil_drives_hut_reads SHALL flash HIL environment drive_walk and HUT environment read_d2_d5, read frames from the hardware-under-test serial port, and pass only when the checkout walk appears in order.
+<<<
+COMMENT: >>>
+Acceptance: The case table binds that test id to those environments and to the hut reporter.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: STP-001
+- TYPE: Parent
+  VALUE: SRS-002
+
+[REQUIREMENT]
+UID: STD-003
+TITLE: Missing ports fail the checkout
+STATEMENT: >>>
+The checkout SHALL fail when --hil-port and NANO_HIL_PORT are both absent, and when --hut-port and NANO_HUT_PORT are both absent.
+<<<
+COMMENT: >>>
+Acceptance: pytest reports a failure from MissingPortError rather than a skip.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: STP-002
+- TYPE: Parent
+  VALUE: SRS-004
+
+[REQUIREMENT]
+UID: STD-004
+TITLE: Parser frame cases
+STATEMENT: >>>
+A test SHALL accept a frame of READY, SAMPLE D2, SAMPLE D3, SAMPLE D4, SAMPLE D5, and DONE, and SHALL reject a level other than 0 or 1.
+<<<
+COMMENT: >>>
+Acceptance: test_parse_frame_accepts_ready_samples_done passes and test_parse_frame_rejects_bad_level passes.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: STP-001
+- TYPE: Parent
+  VALUE: SRS-005
