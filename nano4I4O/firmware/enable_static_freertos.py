@@ -22,10 +22,13 @@ TIMERS = re.compile(
 def enable_static(header: Path) -> None:
     """Rewrite one installed FreeRTOSConfig.h."""
     text = header.read_text(encoding="utf-8")
-    updated = TIMERS.sub("#define configUSE_TIMERS 0", STATIC.sub(
-        "#define configSUPPORT_STATIC_ALLOCATION 1",
-        text,
-    ))
+    updated = TIMERS.sub(
+        "#define configUSE_TIMERS 0",
+        STATIC.sub(
+            "#define configSUPPORT_STATIC_ALLOCATION 1",
+            text,
+        ),
+    )
     if updated != text:
         header.write_text(updated, encoding="utf-8")
 
