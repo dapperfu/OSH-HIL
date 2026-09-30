@@ -1,0 +1,55 @@
+[DOCUMENT]
+TITLE: MIL-STD-498 IRS (Interface Requirements Specification)
+PREFIX: IRS-
+
+[REQUIREMENT]
+UID: IRS-001
+TITLE: Checkout pin levels
+STATEMENT: >>>
+The checkout interface SHALL use digital pins D2, D3, D4, and D5. Each pin SHALL carry a logic level of 0 or 1. The boards SHALL share ground.
+<<<
+COMMENT: >>>
+Acceptance: Reader frames name only D2, D3, D4, and D5, and each level is 0 or 1.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SSS-002
+
+[REQUIREMENT]
+UID: IRS-002
+TITLE: Host serial port
+STATEMENT: >>>
+Reader text SHALL travel on the board USB serial port at 115200 baud, 8 data bits, no parity, and 1 stop bit. Pins D0 and D1 SHALL NOT be used as checkout wires.
+<<<
+COMMENT: >>>
+Acceptance: Firmware opens the USB serial port at 115200, and the pin catalog marks D0 and D1 as the host UART.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SSS-003
+
+[REQUIREMENT]
+UID: IRS-003
+TITLE: Reader frame
+STATEMENT: >>>
+The reading image SHALL emit one text frame per observation. The frame SHALL be the line READY, then one line SAMPLE <pin> <level> for D2, D3, D4, and D5 in that order, then the line DONE. The level SHALL be 0 or 1. The driving image SHALL stay silent on USB serial.
+<<<
+COMMENT: >>>
+Acceptance: A parser round-trip of that frame recovers the four levels, and the drive image does not write serial text.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SSS-003
+
+[REQUIREMENT]
+UID: IRS-004
+TITLE: Settle time after a drive change
+STATEMENT: >>>
+After changing the checkout pins, the driving image SHALL wait 10 ms before treating the new levels as settled, and SHALL hold those levels for 50 ms so the reader can sample them.
+<<<
+COMMENT: >>>
+Acceptance: The drive task delays 10 ms as the settle interval inside a 50 ms hold.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SSS-002
