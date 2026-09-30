@@ -1,0 +1,48 @@
+[DOCUMENT]
+TITLE: MIL-STD-498 OCD (Operational Concept Document)
+PREFIX: OCD-
+
+[REQUIREMENT]
+UID: OCD-001
+TITLE: Smoke bench in place of a large HIL rig
+STATEMENT: >>>
+The nanoHIL SHALL provide an inexpensive smoke test that stands in for a multi-thousand-dollar hardware-in-the-loop bench.
+<<<
+RATIONALE: >>>
+dSPACE and similar benches stay available for larger tasks. nanoHIL exists so pin-level checkout does not consume that equipment.
+<<<
+COMMENT: >>>
+Acceptance: HIL/README.md states this purpose and lists the Nano IO a smoke bench can use.
+<<<
+
+[REQUIREMENT]
+UID: OCD-002
+TITLE: Second Nano stands in for the device
+STATEMENT: >>>
+nano4I4O SHALL check out four digital wires using a second Arduino Nano as the hardware under test. The same nanoHIL pins SHALL remain the attachment point when real hardware replaces that Nano.
+<<<
+RATIONALE: >>>
+The second Nano is a stand-in so the wires can be proven before a product is attached.
+<<<
+COMMENT: >>>
+Acceptance: The bench wiring uses the nanoHIL checkout pins, and the operational text allows the HUT Nano to be replaced by the real device.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: OCD-001
+
+[REQUIREMENT]
+UID: OCD-003
+TITLE: Large benches remain for larger tasks
+STATEMENT: >>>
+The project SHALL leave larger hardware-in-the-loop work to benches such as dSPACE.
+<<<
+RATIONALE: >>>
+nanoHIL is a smoke bench. It does not replace a full real-time HIL system.
+<<<
+COMMENT: >>>
+Acceptance: OCD and HIL/README.md both limit nanoHIL to smoke tests.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: OCD-001
