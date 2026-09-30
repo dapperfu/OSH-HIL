@@ -1,0 +1,4 @@
+[project]
+title = "nano4I4O"
+html_root = "reqs/html"
+exclude_doc_paths = ["reqs/html", "reqs/html/**"]
