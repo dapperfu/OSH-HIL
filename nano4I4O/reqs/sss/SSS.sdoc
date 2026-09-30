@@ -1,0 +1,55 @@
+[DOCUMENT]
+TITLE: MIL-STD-498 SSS (System/Subsystem Specification)
+PREFIX: SSS-
+
+[REQUIREMENT]
+UID: SSS-001
+TITLE: Two classic Nano boards
+STATEMENT: >>>
+The bench SHALL use two Arduino Nano boards with the ATmega328P, PlatformIO board nanoatmega328, one as nanoHIL and one as the hardware under test.
+<<<
+COMMENT: >>>
+Acceptance: Both PlatformIO projects set board to nanoatmega328.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: OCD-002
+
+[REQUIREMENT]
+UID: SSS-002
+TITLE: Four digital checkout wires
+STATEMENT: >>>
+nanoHIL pins D2, D3, D4, and D5 SHALL be wired one-to-one to the same pins on the hardware under test, and the two boards SHALL share ground.
+<<<
+COMMENT: >>>
+Acceptance: The interface specification names those four pins and ground, and no other conductor is required for the checkout.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: OCD-002
+
+[REQUIREMENT]
+UID: SSS-003
+TITLE: nanoHIL reports observations to the host
+STATEMENT: >>>
+The nanoHIL SHALL observe the attached device on the checkout wires. The host SHALL be the pass or fail authority for those observations.
+<<<
+COMMENT: >>>
+Acceptance: A host test fails when the reported levels do not match the expected walk, and passes when they do.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: OCD-001
+
+[REQUIREMENT]
+UID: SSS-004
+TITLE: Host orchestrates firmware
+STATEMENT: >>>
+The host SHALL flash the firmware image selected for the nanoHIL and the firmware image selected for the hardware under test before judging a checkout.
+<<<
+COMMENT: >>>
+Acceptance: A hardware test flashes one PlatformIO environment on each board before reading serial text.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: OCD-001
