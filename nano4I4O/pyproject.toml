@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nano4i4o"
+version = "0.1.0"
+description = "Host orchestration for the nano4I4O Arduino Nano smoke bench"
+readme = "HIL/README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.1",
+    "pyserial>=3.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "coverage>=7",
+    "pytest>=8",
+    "ruff>=0.6",
+    "strictdoc>=0.30",
+]
+
+[project.scripts]
+nano4i4o = "nano4i4o.cli:cli"
+
+[tool.hatch.build.targets.wheel]
+packages = ["nano4i4o"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "hardware: checkout that flashes both Nano boards",
+]
+
+[tool.coverage.run]
+source = ["nano4i4o"]
+omit = [
+    "*/tests/*",
+    "*/__main__.py",
+]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
