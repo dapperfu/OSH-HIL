@@ -1,0 +1,29 @@
+[DOCUMENT]
+TITLE: MIL-STD-498 STP (Software Test Plan)
+PREFIX: STP-
+
+[REQUIREMENT]
+UID: STP-001
+TITLE: Planned test groups
+STATEMENT: >>>
+The test plan SHALL cover protocol parsing, the PlatformIO environment catalog, serial-port resolution, and two hardware checkouts: the hardware under test driving while nanoHIL reads, and nanoHIL driving while the hardware under test reads.
+<<<
+COMMENT: >>>
+Acceptance: Test modules exist for the parser, the catalog, port resolution, and the parametrized checkout.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SRS-001
+
+[REQUIREMENT]
+UID: STP-002
+TITLE: Bench absence fails the checkout
+STATEMENT: >>>
+Parser, catalog, and port-resolution tests SHALL run without boards attached. The hardware checkout tests SHALL fail when the bench is not connected.
+<<<
+COMMENT: >>>
+Acceptance: make test runs the full pytest suite. Off the bench, the checkout tests fail and the parser tests can still pass when invoked on their own.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SRS-004
