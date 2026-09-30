@@ -1,0 +1,81 @@
+[DOCUMENT]
+TITLE: MIL-STD-498 SRS (Software Requirements Specification)
+PREFIX: SRS-
+
+[REQUIREMENT]
+UID: SRS-001
+TITLE: Discover PlatformIO environments
+STATEMENT: >>>
+pytest SHALL discover the PlatformIO environments declared in the HIL and HUT projects.
+<<<
+COMMENT: >>>
+Acceptance: The catalog lists read_d2_d5 and drive_walk for both projects and fails when a checkout names a missing environment.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SSS-004
+
+[REQUIREMENT]
+UID: SRS-002
+TITLE: Flash the environment named by the test
+STATEMENT: >>>
+Each hardware test SHALL name one HIL environment and one HUT environment. The test fixture SHALL flash those environments before opening a serial port.
+<<<
+COMMENT: >>>
+Acceptance: The checkout cases map hut_drives_hil_reads and hil_drives_hut_reads onto those environments, and the flash command is pio run -t upload with that environment and upload port.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SSS-004
+
+[REQUIREMENT]
+UID: SRS-003
+TITLE: Resolve serial ports from the CLI or the environment
+STATEMENT: >>>
+The host SHALL take the nanoHIL serial port from --hil-port when that option is present, and otherwise from NANO_HIL_PORT. The host SHALL take the hardware-under-test serial port from --hut-port when that option is present, and otherwise from NANO_HUT_PORT.
+<<<
+COMMENT: >>>
+Acceptance: A unit test resolves a CLI value ahead of the environment variable, and resolves the environment variable when the CLI value is absent.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SSS-004
+
+[REQUIREMENT]
+UID: SRS-004
+TITLE: Fail when the bench is not usable
+STATEMENT: >>>
+A hardware test SHALL fail when either port is missing, when a port cannot be opened, when flashing fails, or when the bench does not produce the expected reader text. The test SHALL NOT be skipped for those conditions.
+<<<
+COMMENT: >>>
+Acceptance: With neither the CLI options nor the environment variables set, the checkout test fails with a missing-port error.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SSS-003
+
+[REQUIREMENT]
+UID: SRS-005
+TITLE: Host parses reader text
+STATEMENT: >>>
+The host SHALL parse reader frames and compare the sampled pin levels with the expected walk. The host SHALL be the pass or fail authority.
+<<<
+COMMENT: >>>
+Acceptance: The parser accepts a complete frame and rejects a level other than 0 or 1. The walk matcher requires the expected patterns in order.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SSS-003
+
+[REQUIREMENT]
+UID: SRS-006
+TITLE: FreeRTOS with two tasks
+STATEMENT: >>>
+Each firmware image SHALL run FreeRTOS on the ATmega328P using static allocation and two tasks: one IO checkout task and one USB serial task.
+<<<
+COMMENT: >>>
+Acceptance: Both images create exactly those two tasks and do not call the FreeRTOS heap allocator for checkout state.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SSS-001
