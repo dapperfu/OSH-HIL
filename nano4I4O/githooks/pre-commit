@@ -1,0 +1,13 @@
+#!/bin/sh
+# Regenerate nano4I4O requirements HTML when .sdoc files are staged.
+root=$(git rev-parse --show-toplevel) || exit 1
+cd "${root}/nano4I4O" || exit 1
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR | grep 'nano4I4O/reqs/.*\.sdoc$' || true)
+if [ -z "${staged}" ]; then
+    exit 0
+fi
+
+make strictdoc-generate || exit 1
+git add -- "${root}/nano4I4O/reqs/html"
+exit 0
