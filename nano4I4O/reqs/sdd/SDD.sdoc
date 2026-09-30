@@ -1,0 +1,55 @@
+[DOCUMENT]
+TITLE: MIL-STD-498 SDD (Software Design Description)
+PREFIX: SDD-
+
+[REQUIREMENT]
+UID: SDD-001
+TITLE: IO task and serial task
+STATEMENT: >>>
+The IO task SHALL drive or sample D2, D3, D4, and D5. The serial task SHALL be the only task that writes USB serial. The reader IO task SHALL pass each sample to the serial task through a FreeRTOS queue. The driver serial task SHALL NOT transmit.
+<<<
+COMMENT: >>>
+Acceptance: setup creates the io task and the ser task, and only the reader serial task prints frames.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SRS-006
+
+[REQUIREMENT]
+UID: SDD-002
+TITLE: Read and drive environments
+STATEMENT: >>>
+The HIL and HUT PlatformIO projects SHALL each provide the environments read_d2_d5 and drive_walk. read_d2_d5 SHALL configure D2 through D5 as inputs. drive_walk SHALL configure those pins as outputs and repeat the checkout walk.
+<<<
+COMMENT: >>>
+Acceptance: The catalog finds both environment names in both platformio.ini files.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SRS-002
+
+[REQUIREMENT]
+UID: SDD-003
+TITLE: Fixture order
+STATEMENT: >>>
+The hardware fixture SHALL upload the HUT environment, then upload the HIL environment, then open the reader serial port, then collect frames until the expected walk appears in order or the wait expires.
+<<<
+COMMENT: >>>
+Acceptance: The checkout function calls flash for the HUT port before flash for the HIL port, then reads the reporter selected by the case.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: SRS-002
+
+[REQUIREMENT]
+UID: SDD-004
+TITLE: Checkout walk
+STATEMENT: >>>
+The drive walk SHALL repeat these D2, D3, D4, D5 levels in order: 0 0 0 1, 0 0 1 0, 0 1 0 0, 1 0 0 0, 1 1 1 0, 1 1 0 1, 1 0 1 1, 0 1 1 1. The reader SHALL emit one frame for each sample. The host SHALL pass the checkout only when those patterns appear in that order.
+<<<
+COMMENT: >>>
+Acceptance: Firmware and the host case table use the same eight patterns, and an out-of-order observation fails the matcher.
+<<<
+RELATIONS:
+- TYPE: Parent
+  VALUE: IRS-003
