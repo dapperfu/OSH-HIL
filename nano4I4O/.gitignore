@@ -1,0 +1,30 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.pdf
+*.dvi
+*.ps
+*.eps
+*.figlist
+*.makefile
+*.auxlock
+
+# Python
+__pycache__/
+*.py[cod]
+.coverage
+htmlcov/
+.ruff_cache/
+venv_nano4I4O/
+
+# PlatformIO and StrictDoc build output
+.pio/
+build/
+reqs/_cache/
